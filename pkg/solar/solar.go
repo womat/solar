@@ -60,7 +60,7 @@ func (m *Measurements) SetUVS232URL(url string) {
 func (m *Measurements) Read() (v Values, err error) {
 	start := time.Now()
 
-	if v, err = m.readUVS232(); err != nil {
+	if err = m.readUVS232(&v); err != nil {
 		return
 	}
 
@@ -78,7 +78,7 @@ func (m *Measurements) Read() (v Values, err error) {
 	return
 }
 
-func (m *Measurements) readUVS232() (v Values, err error) {
+func (m *Measurements) readUVS232(v *Values) (err error) {
 	var r uvs232URLBody
 
 	if err = read(m.uvs232URL, &r); err != nil {
